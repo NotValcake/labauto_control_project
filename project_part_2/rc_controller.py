@@ -7,7 +7,6 @@ from labauto import Delay
 class RCController(BaseController):
     """
     This class implements a repetitive controller
-
     """
 
 
