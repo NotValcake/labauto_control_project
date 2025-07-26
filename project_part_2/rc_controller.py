@@ -31,12 +31,25 @@ class RCController(BaseController):
 
 
     def starting(self, reference: float, measure: float, u: float):
+        """
+        Start the repetitive controller
+
+        :param reference: Reference input signal fo the controller
+        :param measure: Measured process output
+        :param u: Iniitial control action
+        """
         initial_error = reference - measure
         self.LPFilter.starting(initial_error+u)
         self.Delay.starting(initial_error+u)
 
 
     def compute_control_action(self, reference: float, y: float) -> float:
+        """
+        Computes the repetitive controller control action
+
+        :param reference: Reference input signal fo the controller
+        :param y: Process output
+        """
         error = reference - y
         self.u = self.Delay.step(self.LPFilter.step(error+self.u))
         return self.u
