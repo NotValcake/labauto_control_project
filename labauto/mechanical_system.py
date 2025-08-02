@@ -138,5 +138,5 @@ class MechanicalSystem:
         """
         Apply saturation limits to the control input.
         """
-        usat = np.clip(u, -self.umax, self.umax)
+        usat = u #np.clip(u, -self.umax, self.umax)
         return usat

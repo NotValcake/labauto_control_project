@@ -5,15 +5,18 @@ import matplotlib.pyplot as plt
 
 
 def main():
-        
+    w = 1  # rad/s input signal
     Tc = 0.01 # Sampling time
-    L = 0.01  # Time delay
-    T = 0.01  # Lowpass filter time constant
+    L = 0.628 # Time delay
+    T = 0.01 # Lowpass filter time constant
+    # LPF = 1
+    #      ---
+    #    1 + sT
 
-    m = 1.0
+    m = 0.4
     hv = 1.0
     J = 1.0
-    l = 1.0
+    l = 0.5
     g = 9.81
 
     # Mechanical model creation
@@ -23,7 +26,7 @@ def main():
     # x1d = x2
     # x2d = -hv/J - mlg/J * cos(x1) + u
     # y = x2
-    sys = UnbalancedMassMechanicalSys(Tc/2, m, hv, J, l, g)
+    sys = UnbalancedMassMechanicalSys(Tc, m, hv, J, l, g)
     sys.initialize()
 
     # Controller components creation
@@ -79,12 +82,12 @@ def main():
     plt.show()
 
     # Controlled system output (1st spec)
+    sys.initialize()
     q, qd, qdd, u, t , ref= [], [], [], [], [], []
     actual_time = 0.0
-    w = 10 #rad/s
     rc_controller.starting(0, sys.read_sensor_value(), 0)
     for i in range(0, 2000):
-        r =w*np.sin(w * actual_time)    
+        r = w*np.sin(w * actual_time)
         uc = rc_controller.compute_control_action(r, sys.read_sensor_value())
         sys.write_actuator_value([uc])
         sys.simulate()
@@ -107,7 +110,7 @@ def main():
     fig, axes = plt.subplots(2, 2, figsize=(10, 10))
 
     #Error
-    axes[0, 0].plot(time_array,(r_array[:]- qd_array[:]), label='Velocity error')
+    axes[0, 0].plot(time_array,(r_array[:] - qd_array[:]), label='Velocity error')
     axes[0, 0].legend(loc='best')
     # Velocity
     axes[1, 0].plot(time_array, r_array[:] ,label = 'Reference signal w = 10rad/s')

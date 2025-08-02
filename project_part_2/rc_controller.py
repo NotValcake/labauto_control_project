@@ -38,9 +38,10 @@ class RCController(BaseController):
         :param measure: Measured process output
         :param u: Iniitial control action
         """
+        self.u = u
         initial_error = reference - measure
-        self.LPFilter.starting(initial_error+u)
-        self.Delay.starting(initial_error+u)
+        self.LPFilter.starting(initial_error+ self.u)
+        self.Delay.starting(initial_error+ self.u)
 
 
     def compute_control_action(self, reference: float, y: float) -> float:
@@ -51,5 +52,7 @@ class RCController(BaseController):
         :param y: Process output
         """
         error = reference - y
-        self.u = self.Delay.step(self.LPFilter.step(error+self.u))
+        v = self.LPFilter.step(error + self.u)  # uscita del LPF
+        u = self.Delay.step(v)  # uscita del delay
+        self.u = u
         return self.u
