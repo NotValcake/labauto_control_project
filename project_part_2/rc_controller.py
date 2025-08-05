@@ -40,8 +40,8 @@ class RCController(BaseController):
         """
         self.u = u
         initial_error = reference - measure
-        self.LPFilter.starting(initial_error+ self.u)
-        self.Delay.starting(initial_error+ self.u)
+        self.LPFilter.starting(initial_error)
+        self.Delay.starting(initial_error)
 
 
     def compute_control_action(self, reference: float, y: float) -> float:

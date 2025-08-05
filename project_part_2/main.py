@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 
 
 def main():
-    w = 1  # rad/s input signal
+    w = 10 # rad/s input signal
     sampling_time = 0.005 # Sampling time
-    delay_filter_dead_time = 0.628 # Time delay
-    lpf_time_constant = 0.05 # Lowpass filter time constant
+    delay_filter_dead_time = np.round(6.28/w,1) # Time delay
+    lpf_time_constant = 0.021 # Lowpass filter time constant
     # LPF = 1
     #      ---
     #    1 + sT
@@ -28,6 +28,7 @@ def main():
     # y = x2
     sys = UnbalancedMassMechanicalSys(sampling_time, mass, damping_coeff, inertia, link_len, g)
     sys.initialize()
+    sys.starting()
 
     # Controller components creation
     delay = Delay(sampling_time, delay_filter_dead_time)
@@ -36,7 +37,7 @@ def main():
     # Controller creation
     rc_controller = RCController(sampling_time, lp_filter, delay)
     rc_controller.initialize()
-
+    rc_controller.starting(0, 0, 0)
     q, qd, qdd, u, t = [], [], [], [], []
     actual_time = 0.0
 
@@ -81,17 +82,17 @@ def main():
     # plt.show()
 
     # Controlled system output (1st spec: 20 seconds qd = 10 rad/s)
-    sys.initialize()
-    q, qd, qdd, u, t , ref= [], [], [], [], [], []
+
+    q, qd, qdd, u, t , ref= [0], [0], [0], [0], [0], [0]
     actual_time = 0.0
-    rc_controller.starting(0, sys.read_sensor_value(), 0)
+
     
     total_time = 20
-    reference = 10 # rad/s
+
 
     for i in range(0, (int)(total_time/sampling_time)):
-        # r = w*np.sin(w * actual_time)
-        uc = rc_controller.compute_control_action(reference, sys.read_sensor_value())
+        r = np.sin(w * actual_time)
+        uc = rc_controller.compute_control_action(r, sys.read_sensor_value())
         sys.write_actuator_value([uc])
         sys.simulate()
         q.append(sys.x[0])
@@ -99,7 +100,7 @@ def main():
         qdd.append(sys.state_function(sys.x, [uc], actual_time)[1])
         u.append(uc)
         t.append(actual_time)
-        ref.append(reference)
+        ref.append(r)
 
         actual_time += sampling_time
 
@@ -117,7 +118,7 @@ def main():
     axes[0, 0].legend(loc='best')
 
     # Velocity
-    axes[1, 0].plot(time_array, r_array[:] ,label = 'Reference signal w = 10rad/s')
+    axes[1, 0].plot(time_array, r_array[:] ,label = 'reference signal w = 10rad/s')
     axes[1, 0].plot(time_array, qd_array[:], label='Controlled velocity')
     axes[1, 0].legend(loc='best')
 

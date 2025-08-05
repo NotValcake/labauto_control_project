@@ -12,6 +12,10 @@ class UnbalancedMassMechanicalSys(MechanicalSystem):
         self.g = g
         super().__init__(st)
 
+    def starting(self):
+        self.x[0] = 3/2*np.pi
+        self.x[1] = 0
+
     def state_function(self, x: np.array, u: float, t)->np.ndarray:
         """
         Definition of the state transition function
