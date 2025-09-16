@@ -1,0 +1,9 @@
+pause: 1
+move: [0, 0]
+pause: 1
+move: [0, 1.5708]
+pause: 1
+move: [1.5708, 1.5708]
+move: [-1.5708, 0]
+pause: 1
+move: [0, 0]
