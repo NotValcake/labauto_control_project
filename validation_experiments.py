@@ -9,7 +9,7 @@ import yaml
 from scipy.signal import chirp
 import random
 
-model_name = "scara0"
+model_name = "progetto_13"
 
 
 # Load controller parameters and dynamic parameters
