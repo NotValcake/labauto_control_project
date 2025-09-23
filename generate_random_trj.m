@@ -4,7 +4,7 @@ joint_min = -pi;
 joint_max = pi;
 
 % Open file to write
-fileID = fopen('random_trj.txt', 'w');
+fileID = fopen('progetto_13/random_trj.txt', 'w');
 
 % Write initial pause
 fprintf(fileID, 'pause: 1\n');

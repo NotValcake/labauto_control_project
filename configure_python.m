@@ -17,3 +17,5 @@ if not(flag)
     error('unable to find a valid version of python')
 end
 insert(py.sys.path, int32(0), './labauto')
+
+%%

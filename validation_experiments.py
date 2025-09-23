@@ -63,7 +63,7 @@ for itest in range(0,40):
 
     f0 = 0.1+9.9*np.random.rand(1)[0] # random number between 0.1 and 10
     f1 = 100.0+400.0*np.random.rand(1)[0] # random number between 100 and 500
-    A = 5.0+10.0*np.random.rand(1)[0] # random number between 5 and 15
+    A = 1.0+6.0*np.random.rand(1)[0] # random number between 1 and 7
     joint_number = round(np.random.rand(1)[0]) # if random number <0.5, use joint 0,  otherwise joint 1
 
     if np.random.rand(1)[0]>0.5: # 50% chance to invert f0 and f1

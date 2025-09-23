@@ -2,12 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from labauto import PinocchioRoboticSystem
 from labauto import TrapezoidalMotionLaw
-from labauto import load_controller
+from labauto import loadController
 from scipy.io import savemat
 from datetime import datetime
 import yaml
 
-model_name = "scara0"
+model_name = "progetto_13"
 
 # Load controller parameters and dynamic parameters
 with open(f'{model_name}/initial_control_config.yaml', 'r') as file:
@@ -48,7 +48,7 @@ t = np.arange(0, Duration + Tc, Tc)  # Ensure inclusion of Duration if possible
 
 f0 = 1.0
 f1 = 500.0
-A = 10.0
+A = 5.0
 joint_number = 1
 chirp_signal = A * chirp(t, f0=f0, f1=f1, t1=Duration, method='logarithmic')
 

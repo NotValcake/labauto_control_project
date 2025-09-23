@@ -5,7 +5,7 @@
 
 clc;clear all;close all;
 model_name='progetto_13';
-giunto="secondo";
+giunto="primo";
 if giunto=="primo"
     load([model_name,'/modello_primo_giunto'])
     tests=dir([model_name,'/tests/validation_chirp_experiment_joint1*.mat']);

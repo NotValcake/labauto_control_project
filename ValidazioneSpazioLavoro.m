@@ -2,8 +2,8 @@
 % Carico i risultati del test nei vari working point (wp)
 
 clc;clear all;close all;
-model_name='scara0';
-giunto="secondo";
+model_name='progetto_13';
+giunto="primo";
 if giunto=="primo"
     load([model_name,'/modello_primo_giunto'])
     tests=dir([model_name,'/tests/wp_validation_chirp_experiment_joint1_*.mat']);
@@ -52,7 +52,8 @@ for itest=1:length(tests)
     figure(2)
     bode_opts = bodeoptions('cstprefs');
     bode_opts.PhaseWrapping = 'on';
-    h=bodeplot(freq_resp_valid,'k', bode_opts);
+    h=bodeplot(freq_resp_valid, bode_opts);
+    legend();
     grid on
     hold on
 end
@@ -66,4 +67,3 @@ bode_opts.PhaseWrapping = 'on';
 bode(modello_continuo,bode_opts)
 
 %% 
-%

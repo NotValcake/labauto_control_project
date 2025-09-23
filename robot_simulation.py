@@ -10,7 +10,7 @@ from scipy.io import savemat
 from datetime import datetime
 import yaml
 
-model_name = "scara0"
+model_name = "progetto_13"
 #program_name="random_trj"
 program_name="test_trj1"
 
