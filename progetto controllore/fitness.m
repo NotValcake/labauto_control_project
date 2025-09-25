@@ -18,6 +18,7 @@ actual_wc=find_cutting_frequency(L,frequency_vector);
 if not(isempty(actual_wc))
     J=(actual_wc-desired_wc)^2;
     %J=-actual_wc/desired_wc;
+    %J = -actual_wc;
 else
     J=1000000;
 end

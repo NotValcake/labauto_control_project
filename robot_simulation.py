@@ -15,7 +15,7 @@ model_name = "progetto_13"
 program_name="test_trj1"
 
 # Load controller parameters and dynamic parameters
-with open(f'{model_name}/control_config.yaml', 'r') as file:
+with open(f'{model_name}/control_config_ottimo.yaml', 'r') as file:
     params_yaml = yaml.safe_load(file)
     controller_params = params_yaml['controller']
     dynamic_params = np.array(params_yaml['model_parameters'])

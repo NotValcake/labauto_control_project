@@ -2,28 +2,24 @@ controller:
   cascade_controllers:
   - name: "joint1"
     inner:
-      Kp: 770.1137  # Wc = 150; Wi = wc/20;
-      Ki: 3850.6    #Ti = 0.2
+      Kp: 200.7841  # Wc = 24.2; Wi = 0.00001;
+      Ki: 0.0201    #Ti = 10000
       Kd: 0.0
-      filters_on_error_signal:
-        - type: "NotchFilter"
-          natural_frequency: 370
-          zeros_damping: 0.1
-          poles_damping: 0.4
+      # desired_wc = 150;
+      # desired_phase_margin = 90;
+      # desired_maximum_sensitivity = 1.8;
     outer:
       Kp: 5.0
       Ki: 0.0
       Kd: 0.0
   - name: "joint2"
     inner:
-      Kp: 218.4862
-      Ki: 2731.1   #Ti = 0.08
+      Kp: 15.5287  # Wc = 19.4; Wi = ;
+      Ki: 0.0016    #Ti = 9911.5
       Kd: 0.0
-      filters_on_error_signal:
-        - type: "NotchFilter"
-          natural_frequency: 670
-          zeros_damping: 0.1
-          poles_damping: 0.4
+      # desired_wc = 150;
+      # desired_phase_margin = 90;
+      # desired_maximum_sensitivity = 1.8;
     outer:
       Kp: 5.0
       Ki: 0.0
