@@ -12,10 +12,10 @@ import yaml
 
 model_name = "progetto_13"
 #program_name="random_trj"
-program_name="test_trj1"
+program_name="random_trj"
 
 # Load controller parameters and dynamic parameters
-with open(f'{model_name}/control_config_ottimo.yaml', 'r') as file:
+with open(f'{model_name}/control_config_manuale_Notch.yaml', 'r') as file:
     params_yaml = yaml.safe_load(file)
     controller_params = params_yaml['controller']
     dynamic_params = np.array(params_yaml['model_parameters'])
@@ -126,4 +126,5 @@ for ax in axes.flat:
     ax.grid()
     ax.legend()
 plt.xlabel("Time (s)")
+plt.ylabel("Porcodio (dp)")
 plt.show()
