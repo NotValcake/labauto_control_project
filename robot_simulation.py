@@ -12,7 +12,7 @@ import yaml
 
 model_name = "progetto_13"
 #program_name="random_trj"
-program_name="random_trj"
+program_name="test_trj1"
 
 # Load controller parameters and dynamic parameters
 with open(f'{model_name}/control_config_manuale_Notch.yaml', 'r') as file:
@@ -126,5 +126,4 @@ for ax in axes.flat:
     ax.grid()
     ax.legend()
 plt.xlabel("Time (s)")
-plt.ylabel("Porcodio (dp)")
 plt.show()
