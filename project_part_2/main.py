@@ -2,30 +2,20 @@ from project_part_2 import RCController, UnbalancedMassMechanicalSys
 from labauto import FirstOrderLowPassFilter, Delay
 import numpy as np
 import matplotlib.pyplot as plt
+from time import perf_counter
 
 def main():
     sampling_time = 0.005
 
-    # # Controller parameters
-    # delay_filter_dead_time = 0.5
-    # lpf_time_constant = .5
-
-    # # System parameters
-    # mass = 1
-    # damping_coeff = 1.0
-    # link_len = 1
-    # inertia = mass*link_len*link_len
-    # g = 9.81
-
    # Controller parameters
     delay_filter_dead_time = 0.5
-    lpf_time_constant = 3.14
+    lpf_time_constant = 3
 
     # System parameters
     mass = 0.4
-    damping_coeff = 0.8
+    damping_coeff = 1
     link_len = 0.5
-    inertia = 0.9
+    inertia = 1.2
     g = 9.81
 
     # Creation of the controlled system
@@ -49,9 +39,13 @@ def main():
     time_intervals = [20.0, 20.0, 20.0]          # three 20 s intervals
     intervals_reference    = [10.0, 12.5, 15.0]  # per-interval reference angular velocity
 
+    # Initialize maximum cycle time counter
+    max_cycle_time = -1.0;
+
     for i in range(len(time_intervals)):
         # Perform the simulation loop for each time step of each time interval
         for _ in range(int(time_intervals[i] / sampling_time)):
+            tic = perf_counter()
             actual_reference = intervals_reference[i]
 
             system_output = sys.read_sensor_value()
@@ -67,6 +61,13 @@ def main():
             reference.append(actual_reference)
 
             actual_time += sampling_time
+            toc = perf_counter()
+
+            # Store maximum cycle time
+            max_cycle_time = max(toc-tic, max_cycle_time)
+
+    # Print maximum cycle time
+    print(f"Maximum cycle time: {max_cycle_time} s")
 
     # Convert lists to np.array
     time_array = np.array(t)
@@ -79,20 +80,32 @@ def main():
     fig, axes = plt.subplots(2, 2, figsize=(10, 10))
 
     axes[0, 0].plot(time_array, (reference_array - velocity_array), label='Velocity error')
-    axes[0, 0].legend(loc='best'); axes[0, 0].grid(True)
+    axes[0, 0].set_title("Velocity error")
+    axes[0, 0].set_ylabel("velocity error [rad/s]")
+    axes[0, 0].legend(loc='best')
+    axes[0, 0].grid(True)
 
-    axes[1, 0].plot(time_array, reference_array, label='reference')
-    axes[1, 0].plot(time_array, velocity_array, label='output')
-    axes[1, 0].legend(loc='best'); axes[1, 0].grid(True)
+    axes[1, 0].plot(time_array, reference_array, label='Reference')
+    axes[1, 0].plot(time_array, velocity_array, label='Output')
+    axes[1, 0].set_title("Reference vs. actual output")
+    axes[1, 0].set_ylabel("velocity [rad/s]")
+    axes[1, 0].legend(loc='best')
+    axes[1, 0].grid(True)
 
     axes[0, 1].plot(time_array, acceleration_array, label='Acceleration')
-    axes[0, 1].legend(loc='best'); axes[0, 1].grid(True)
+    axes[0, 1].set_title("Motor acceleration")
+    axes[0, 1].set_ylabel("acceleration [rad/s^2]")
+    axes[0, 1].legend(loc='best')
+    axes[0, 1].grid(True)
 
     axes[1, 1].plot(time_array, control_actions_array, label='Control Input')
-    axes[1, 1].legend(loc='best'); axes[1, 1].grid(True)
+    axes[1, 1].set_title("Motor velocity")
+    axes[1, 1].set_ylabel("torque [Nm]")
+    axes[1, 1].legend(loc='best')
+    axes[1, 1].grid(True)
 
     for ax in axes.flat:
-        ax.set_xlabel("Time (s)")
+        ax.set_xlabel("Time [s]")
 
     plt.tight_layout()
     plt.show()
