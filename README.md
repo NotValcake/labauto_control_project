@@ -1,4 +1,5 @@
-# L
+# Laboratorio di Automatica control project
+
 ## Overview
 
 This repository contains a collection of MATLAB classes used for the _Laboratorio di Automatica_ course at the [_Università degli Studi di Brescia_](https://www.unibs.it/it). The authors decline any responsibility for usage outside this scope. The provided tools support the development and implementation of control systems for mechatronic applications.
@@ -10,7 +11,7 @@ Developed by [CARI JRL](https://cari.unibs.it/).
 
 ## Table of Contents
 
-- [L](#l)
+- [Laboratorio di Automatica control project](#laboratorio-di-automatica-control-project)
   - [Overview](#overview)
   - [Build Status](#build-status)
   - [Table of Contents](#table-of-contents)
