@@ -52,7 +52,7 @@ class RCController(BaseController):
         :param y: Process output
         """
         error = reference - y
-        v = self.LPFilter.step(error + self.u)  # uscita del LPF
-        u = self.Delay.step(v)  # uscita del delay
-        self.u = u
+        v = self.LPFilter.step(error + self.u)  # LPF output
+        u = self.Delay.step(v)  # delay output
+        self.u = u # update of the last output
         return self.u
