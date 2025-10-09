@@ -14,13 +14,13 @@ controller:
           zeros_damping: 0.1
           poles_damping: 0.3
     outer:
-      Kp: 5.0
+      Kp: 15.0
       Ki: 0.0
       Kd: 0.0
   - name: "joint2"
     inner:
-      Kp: 15.5287  # Wc = 19.4; Wi = ;
-      Ki: 0.0016    #Ti = 9911.5
+      Kp: 221.5968  # Wc = 250; Wi = ;
+      Ki: 0.0858    #Ti = 2581.7
       Kd: 0.0
       filters_on_error_signal:
         - type: "NotchFilter"
@@ -31,7 +31,7 @@ controller:
       # desired_phase_margin = 90;
       # desired_maximum_sensitivity = 1.8;
     outer:
-      Kp: 5.0
+      Kp: 25.0
       Ki: 0.0
       Kd: 0.0
 
