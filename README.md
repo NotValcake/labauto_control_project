@@ -2,18 +2,15 @@
 
 ## Overview
 
-This repository contains a collection of MATLAB classes used for the _Laboratorio di Automatica_ course at the [_Università degli Studi di Brescia_](https://www.unibs.it/it). The authors decline any responsibility for usage outside this scope. The provided tools support the development and implementation of control systems for mechatronic applications.
+This repository is a fork of [labauto_control_library](https://github.com/JRL-CARI-CNR-UNIBS/labauto_control_library), and it was used for the _Laboratorio di Automatica_ project at the [_Università degli Studi di Brescia_](https://www.unibs.it/it). The authors decline any responsibility for usage outside this scope. The provided tools support the development and implementation of control systems for mechatronic applications.
 Developed by [CARI JRL](https://cari.unibs.it/).
 
-## Build Status
-
-![CI Test](https://github.com/JRL-CARI-CNR-UNIBS/labauto_control_library/actions/workflows/ci.yml/badge.svg?branch=master)
+See [labauto_control_library](https://github.com/JRL-CARI-CNR-UNIBS/labauto_control_library) for further documentation on the library.
 
 ## Table of Contents
 
 - [Laboratorio di Automatica control project](#laboratorio-di-automatica-control-project)
   - [Overview](#overview)
-  - [Build Status](#build-status)
   - [Table of Contents](#table-of-contents)
   - [Key Features](#key-features)
     - [Filter Classes](#filter-classes)
@@ -25,10 +22,9 @@ Developed by [CARI JRL](https://cari.unibs.it/).
   - [MATLAB Scripts](#matlab-scripts)
   - [Python Scripts for Testing and Debugging](#python-scripts-for-testing-and-debugging)
   - [Installation](#installation)
-    - [WINDOWS](#windows)
-    - [UBUNTU](#ubuntu)
-  - [Usage in MATLAB](#usage-in-matlab)
-  - [Run the project solution](#run-the-project-solution)
+  - [Run the project solutions](#run-the-project-solutions)
+    - [Part 1](#part-1)
+    - [Part 2](#part-2)
 
 ## Key Features
 
@@ -86,38 +82,16 @@ Each robot folder (e.g., `Scara0/`) should contain these three files.
 
 ## Installation
 
-### WINDOWS
+For the installation instructions refer to the [original repo](https://github.com/JRL-CARI-CNR-UNIBS/labauto_control_library).
 
-Install [Conda](https://repo.anaconda.com/archive/Anaconda3-2024.10-1-Windows-x86_64.exe) with Python 3.12  (other versions could work, check Matlab Python compatibility [here](https://it.mathworks.com/support/requirements/python-compatibility.html)
+Once the installation procedure is complete, you can run our project solution.
 
-In _anaconda prompt_ run:
+## Run the project solutions
 
-```conda install pinocchio -c conda-forge```
+### Part 1
 
-locate the executable with
+To run the solution to the first part of the project run ```robot_simulation.py```
 
-```where python```
-
-If you got the error **LookupError('unknown encoding: uf-16-le')** run:
-
-``` bash
-set PYTHONUTF8=1
-conda install pinocchio -c conda-forge
-```
-
-### UBUNTU
-
-install python3 and python3-pip ([check Matlab Python compatibility](https://it.mathworks.com/support/requirements/python-compatibility.html) then run
-```pip3 install pinocchio```
-
-locate the executable with
-
-```which python```
-
-## Usage in MATLAB
-
-Execute the script ```configure_python``` at the matlab startup
-
-## Run the project solution
+### Part 2
 
 To run the project solution from the `labauto_control_project` directory run ```python -m project_part_2.main```

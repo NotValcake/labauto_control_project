@@ -1,7 +1,7 @@
 clear all; close all; clc
 
-model_name="scara0";
-program_name="test_trj1_20250221114647";
+model_name="progetto_13";
+program_name="test_trj1_20251009140538";
 load(model_name+"\tests\"+program_name+".mat")
 
 % Load the robot model
