@@ -1,6 +1,6 @@
 %% Validazione in presenza di limitazioni di velocità/posizione massima.
 % In questo script vedremo la validazione con sweep in frequenza (chirp)
-% 
+%
 % Carico i risultati del test
 
 clc;clear all;close all;
@@ -12,7 +12,7 @@ if giunto=="primo"
 else
     load([model_name,'/modello_secondo_giunto.mat'])
     tests=dir([model_name,'/tests/validation_chirp_experiment_joint2*.mat']);
-end    
+end
 
 bode_opts = bodeoptions('cstprefs');
 bode_opts.PhaseWrapping = 'on';
@@ -33,17 +33,35 @@ for itest=1:length(tests)
     w1=2*pi*f1; %rad/s     Fs=1/Ts, Ws=2*pi/Ts, max w1 = 0.5*Ws=pi/Ts
     control_action=joint_torque(:,ngiunto);
     output=joint_velocity(:,ngiunto);
-    
+
     validation=iddata(output,control_action,Tc);
     freq_resp_valid = spafdr(validation);
-    
-    figure
+
+    figure(1)
     h=bodeplot(freq_resp_valid,'k', bode_opts);
     grid on
     hold on
     showConfidence(h,3)
-    plot(w0*[1 1],ylim,'--r')
-    plot(w1*[1 1],ylim,'--r')
+    % Edito individualmente i grafici di modulo e fase
+    children=get(h,'Children');
+
+    % Modulo
+    magh = children(1);
+    axes(magh)
+    hold on
+    plot(w0*[1 1], ylim, '--r', 'DisplayName', 'w0');
+    plot(w1*[1 1], ylim, '--r', 'DisplayName', 'w1');
+    grid on
+
+    % Fase
+    phh = children(2);
+    axes(phh)
+    hold on
+    plot(w0*[1 1], ylim, '--r');
+    plot(w1*[1 1], ylim, '--r');
+    grid on
+    ylim([-200 200])
+
     bode(modello_continuo,bode_opts)
     drawnow
     xlim(sort([w0 w1]))

@@ -10,7 +10,7 @@ if giunto=="primo"
 else
     load([model_name,'/modello_secondo_giunto.mat'])
     tests=dir([model_name,'/tests/wp_validation_chirp_experiment_joint2_*.mat']);
-end    
+end
 
 for itest=1:length(tests)
     load([tests(itest).folder,filesep,tests(itest).name])
@@ -28,7 +28,7 @@ for itest=1:length(tests)
     w1=2*pi*f1; %rad/s     Fs=1/Ts, Ws=2*pi/Ts, max w1 = 0.5*Ws=pi/Ts
     control_action=joint_torque(:,ngiunto);
     output=joint_velocity(:,ngiunto);
-    
+
     validation=iddata(output,control_action,Tc);
     freq_resp_valid = spafdr(validation);
 
@@ -48,7 +48,7 @@ for itest=1:length(tests)
     xlabel('Time')
     ylabel('Torque')
     hold on
-                
+
     figure(2)
     bode_opts = bodeoptions('cstprefs');
     bode_opts.PhaseWrapping = 'on';
@@ -58,12 +58,29 @@ for itest=1:length(tests)
     hold on
 end
 figure(2)
-plot(w0*[1 1],ylim,'--r')
-plot(w1*[1 1],ylim,'--r')
+% Edito individualmente i grafici di modulo e fase
+children=get(h,'Children');
+
+% Modulo
+magh = children(1);
+axes(magh)
+hold on
+plot(w0*[1 1], ylim, '--r', 'DisplayName', 'w0');
+plot(w1*[1 1], ylim, '--r', 'DisplayName', 'w1');
+grid on
+xlim([.1*w0 10*w1])
+
+% Fase
+phh = children(2);
+axes(phh)
+hold on
+plot(w0*[1 1], ylim, '--r');
+plot(w1*[1 1], ylim, '--r');
+grid on
 
 bode_opts = bodeoptions('cstprefs');
 bode_opts.PhaseWrapping = 'on';
 
 bode(modello_continuo,bode_opts)
 
-%% 
+%%
